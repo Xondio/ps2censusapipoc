@@ -5,17 +5,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collections;
+import java.util.Map;
+
 @Service
 public class ApiService {
     @Autowired
     RestTemplate restTemplate;
 
-    public OutfitListMembersAllFields retriveOutfitListMembersAllFields(String url){
+    public OutfitListMembersAllFields retriveOutfitListMembersAllFields(String outfitName){
+        String url = "https://census.daybreakgames.com/get/ps2:v2/outfit/?name={outfitName}&c:resolve=member_character";
 
-        OutfitListMembersAllFields object = restTemplate.getForObject(url, OutfitListMembersAllFields.class);
+        Map<String, String> vars = Collections.singletonMap("outfitName", outfitName);
 
-        return object;
-
-
+        return restTemplate.getForObject(url, OutfitListMembersAllFields.class, vars);
     }
 }
