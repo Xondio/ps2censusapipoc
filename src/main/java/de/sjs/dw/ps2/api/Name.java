@@ -1,37 +1,40 @@
 
 package de.sjs.dw.ps2.api;
 
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonPropertyOrder({
+    "first",
+    "first_lower"
+})
 public class Name {
 
+    @JsonProperty("first")
     private String first;
+    @JsonProperty("first_lower")
     private String firstLower;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
+    @JsonProperty("first")
     public String getFirst() {
         return first;
     }
 
+    @JsonProperty("first")
     public void setFirst(String first) {
         this.first = first;
     }
 
+    @JsonProperty("first_lower")
     public String getFirstLower() {
         return firstLower;
     }
 
+    @JsonProperty("first_lower")
     public void setFirstLower(String firstLower) {
         this.firstLower = firstLower;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
     }
 
 }
