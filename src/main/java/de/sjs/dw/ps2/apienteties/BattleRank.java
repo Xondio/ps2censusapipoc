@@ -1,5 +1,5 @@
 
-package de.sjs.dw.ps2.api;
+package de.sjs.dw.ps2.apienteties;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
