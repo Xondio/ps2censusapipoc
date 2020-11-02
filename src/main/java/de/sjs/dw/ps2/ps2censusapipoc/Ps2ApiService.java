@@ -9,11 +9,11 @@ import java.util.Collections;
 import java.util.Map;
 
 @Service
-public class ApiService {
+public class Ps2ApiService {
     @Autowired
     RestTemplate restTemplate;
 
-    public OutfitListMembersAllFields retriveOutfitListMembersAllFields(String outfitName){
+    public OutfitListMembersAllFields receiveOutfitListMembersAllFields(String outfitName){
         String url = "https://census.daybreakgames.com/get/ps2:v2/outfit/?name={outfitName}&c:resolve=member_character";
 
         Map<String, String> vars = Collections.singletonMap("outfitName", outfitName);
