@@ -10,6 +10,7 @@ import java.util.Map;
 
 @Service
 public class Ps2ApiService {
+
     @Autowired
     RestTemplate restTemplate;
 
