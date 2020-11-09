@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
-class DwSeachrSiteHtmlParserServiceTest {
+class DwSearchSiteHtmlParserServiceTest {
 
     @Autowired
     DwSeachrSiteHtmlParserService dwSeachrSiteHtmlParserService;
@@ -46,6 +46,18 @@ class DwSeachrSiteHtmlParserServiceTest {
         assertNotNull(doc);
     }
 
+    @Test
+    void parsePage5_OfMemberSearch_andThenPage6() throws IOException {
+        Document doc = dwSeachrSiteHtmlParserService.parseDWHQMemberSearch(5);
+
+        assertNotNull(doc);
+        Document doc2 = dwSeachrSiteHtmlParserService.parseDWHQMemberSearch(6);
+
+        assertNotNull(doc2);
+
+        assertNotEquals(doc.toString(),doc2.toString());
+
+    }
 
     @Test
     public void findSearchMainElementTest() throws IOException {
@@ -116,6 +128,20 @@ class DwSeachrSiteHtmlParserServiceTest {
         assertEquals(19, maxPageCount);
     }
 
+    @Test
+    void getAllElementsFromSite1ToSiteMax() throws IOException {
+        Elements memberElements = dwSeachrSiteHtmlParserService.getAllMemberInformationElements();
+
+        assertNotNull(memberElements);
+        assertTrue(memberElements.size() > 24);
+    }
+
+    @Test
+    void getAllHasForumsMemberInformationsFromAllSearchPages() throws IOException {
+        dwSeachrSiteHtmlParserService.getAllHasForumsMemberInformationObjects();
+
+    }
+
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;
@@ -127,4 +153,6 @@ class DwSeachrSiteHtmlParserServiceTest {
         }
         return true;
     }
+
+
 }
