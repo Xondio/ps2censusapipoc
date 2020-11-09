@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 @Service
-public class HtmlParserService {
-
+public class DwSeachrSiteHtmlParserService {
+    private static String SEARCH_URL = "https://druckwelle-hq.de/search/?&type=core_members&page=1&joinedDate=any&group[13]=1";
 
     public Document parseDWHQMainPage() throws IOException {
         String url = "http://druckwelle-hq.de";
@@ -19,9 +19,9 @@ public class HtmlParserService {
     }
 
     public Document parseDWHQMemberSearch() throws IOException {
-        String urlCoreMembers = "https://druckwelle-hq.de/search/?&type=core_members&page=5&joinedDate=any&group[13]=1";
+        String urlCoreMembers = "https://druckwelle-hq.de/search/?&type=core_members&joinedDate=any&group[13]=1";
 
-        return Jsoup.connect(urlCoreMembers).get();
+        return Jsoup.connect(urlCoreMembers).data("page","1").get();
     }
 
     public Element extractSearchResultsFromPage(Document doc){
@@ -51,5 +51,28 @@ public class HtmlParserService {
         Element a = ipsList_reset.get(0);
 
         return a.children().get(0).attr("href");
+    }
+
+    public Integer getMaxPageCount(Document document) {
+        Elements elementsByClass = document.getElementsByClass("ipsPagination_last");
+        String resultStr = getFirstNotNullDataPageAttributeFromIpsPagination_lastElements(elementsByClass);
+
+        if (resultStr != null)
+            return Integer.parseInt(resultStr);
+
+        return null;
+    }
+
+    private String getFirstNotNullDataPageAttributeFromIpsPagination_lastElements(Elements elementsByClass) {
+        for (Element e : elementsByClass) {
+            String result = e.attr("data-page");
+            if (null != result && !result.isBlank())
+                return result;
+            result = getFirstNotNullDataPageAttributeFromIpsPagination_lastElements(e.children());
+            if (null != result && !result.isBlank())
+                return result;
+        }
+
+        return null;
     }
 }

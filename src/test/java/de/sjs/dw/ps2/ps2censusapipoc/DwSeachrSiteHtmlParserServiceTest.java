@@ -15,21 +15,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @TestInstance(value = TestInstance.Lifecycle.PER_CLASS)
-class HtmlParserServiceTest {
+class DwSeachrSiteHtmlParserServiceTest {
 
     @Autowired
-    HtmlParserService htmlParserService;
+    DwSeachrSiteHtmlParserService dwSeachrSiteHtmlParserService;
 
     Document document;
 
     @BeforeAll
     public void beforeAll() throws IOException {
-        document = htmlParserService.parseDWHQMemberSearch();
+        document = dwSeachrSiteHtmlParserService.parseDWHQMemberSearch();
     }
 
     @Test
     public void parseDWHQMainPageTest() throws IOException {
-        Document doc = htmlParserService.parseDWHQMainPage();
+        Document doc = dwSeachrSiteHtmlParserService.parseDWHQMainPage();
 
         System.out.println(doc.toString());
 
@@ -39,7 +39,7 @@ class HtmlParserServiceTest {
 
     @Test
     public void parseDWHQMemberSearch() throws IOException {
-        Document doc = htmlParserService.parseDWHQMemberSearch();
+        Document doc = dwSeachrSiteHtmlParserService.parseDWHQMemberSearch();
 
         System.out.println(doc.toString());
 
@@ -49,7 +49,7 @@ class HtmlParserServiceTest {
 
     @Test
     public void findSearchMainElementTest() throws IOException {
-        Element element = htmlParserService.extractSearchResultsFromPage(document);
+        Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
 
         System.out.println(element.toString());
 
@@ -59,9 +59,9 @@ class HtmlParserServiceTest {
 
     @Test
     public void findStreamItemContainerTest() throws IOException {
-        Element element = htmlParserService.extractSearchResultsFromPage(document);
+        Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
 
-        Elements streamItem_container = htmlParserService.findStreamItemContainers(element);
+        Elements streamItem_container = dwSeachrSiteHtmlParserService.findStreamItemContainers(element);
 
         assertNotNull(streamItem_container);
         assertFalse(streamItem_container.isEmpty());
@@ -70,12 +70,12 @@ class HtmlParserServiceTest {
 
     @Test
     public void getMemberIdFromStreamItemContainerTest() throws IOException {
-        Element element = htmlParserService.extractSearchResultsFromPage(document);
+        Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
 
-        Elements streamItem_container = htmlParserService.findStreamItemContainers(element);
+        Elements streamItem_container = dwSeachrSiteHtmlParserService.findStreamItemContainers(element);
 
         Element el = streamItem_container.get(0);
-        String str = htmlParserService.getMemberIdFromStreamItemContainer(el);
+        String str = dwSeachrSiteHtmlParserService.getMemberIdFromStreamItemContainer(el);
 
         assertTrue(isNumeric(str));
     }
@@ -83,12 +83,12 @@ class HtmlParserServiceTest {
 
     @Test
     public void getMemberNameFromStreamItemContainerTest() throws IOException {
-        Element element = htmlParserService.extractSearchResultsFromPage(document);
-        Elements streamItem_container = htmlParserService.findStreamItemContainers(element);
+        Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
+        Elements streamItem_container = dwSeachrSiteHtmlParserService.findStreamItemContainers(element);
 
         Element el = streamItem_container.get(0);
 
-        String str = htmlParserService.getMemberNameFromStreamItemContainer(el);
+        String str = dwSeachrSiteHtmlParserService.getMemberNameFromStreamItemContainer(el);
 
         assertNotNull(str);
         assertFalse(isNumeric(str));
@@ -96,16 +96,24 @@ class HtmlParserServiceTest {
 
     @Test
     public void getMemberProfileUrlFromStreamItemContainerTest() throws IOException {
-        Element element = htmlParserService.extractSearchResultsFromPage(document);
-        Elements streamItem_container = htmlParserService.findStreamItemContainers(element);
+        Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
+        Elements streamItem_container = dwSeachrSiteHtmlParserService.findStreamItemContainers(element);
 
         Element el = streamItem_container.get(0);
 
-        String str = htmlParserService.getMemberProfileUrlFromStreamItemContainer(el);
+        String str = dwSeachrSiteHtmlParserService.getMemberProfileUrlFromStreamItemContainer(el);
 
         assertNotNull(str);
         assertFalse(isNumeric(str));
         assertTrue(str.startsWith("http"));
+    }
+
+    @Test
+    void getMaxPageCountFromFirstSearchSiteTest() {
+        Integer maxPageCount = dwSeachrSiteHtmlParserService.getMaxPageCount(document);
+
+        assertNotNull(maxPageCount);
+        assertEquals(19, maxPageCount);
     }
 
     public static boolean isNumeric(String strNum) {
