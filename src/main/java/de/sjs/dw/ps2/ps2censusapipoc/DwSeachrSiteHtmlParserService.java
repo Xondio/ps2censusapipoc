@@ -7,6 +7,10 @@ import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 @Service
 public class DwSeachrSiteHtmlParserService {
@@ -40,7 +44,8 @@ public class DwSeachrSiteHtmlParserService {
 
     protected String getMemberIdFromStreamItemContainer(Element el) {
         Elements elementDataFollowIds = el.getElementsByAttribute("data-followid");
-
+        // TODO elemts can be empty here since not all Members have the OPtion "Follow" activated
+        // If there is no ID here in the Field it can be extracted from the URL ... maybe this is better in all cases
         return elementDataFollowIds.get(0).attr("data-followid");
     }
 
@@ -100,13 +105,21 @@ public class DwSeachrSiteHtmlParserService {
         return findStreamItemContainers(elem);
     }
 
-    public void getAllHasForumsMemberInformationObjects() throws IOException {
+    public  List<HasForumsMemberInformation> getAllHasForumsMemberInformationObjects(Supplier<HasForumsMemberInformation> supp) throws IOException{
         Elements informationElements = getAllMemberInformationElements();
+        List<HasForumsMemberInformation> returnList = new ArrayList<>();
         for (Element elem :
                 informationElements) {
+            System.out.println("Elem: " + elem);
             String memberName = getMemberNameFromStreamItemContainer(elem);
-            // TODO get rest of those Fields
+            String memberId = getMemberIdFromStreamItemContainer(elem);
+            String memberUrl = getMemberProfileUrlFromStreamItemContainer(elem);
+            HasForumsMemberInformation member = supp.get();
+            member.setForumsMemberId(memberId);
+            member.setForumsMemberPageUrl(memberUrl);
+            member.setForumsName(memberName);
+            returnList.add(member);
         }
-
+        return returnList;
     }
 }

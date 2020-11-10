@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -137,8 +138,13 @@ class DwSearchSiteHtmlParserServiceTest {
     }
 
     @Test
-    void getAllHasForumsMemberInformationsFromAllSearchPages() throws IOException {
-        dwSeachrSiteHtmlParserService.getAllHasForumsMemberInformationObjects();
+    void getAllHasForumsMemberInformationFromAllSearchPages() throws IOException {
+        List<HasForumsMemberInformation> memberInformationObjects = dwSeachrSiteHtmlParserService.
+                getAllHasForumsMemberInformationObjects(Ps2Member::new);
+
+        assertNotNull(memberInformationObjects);
+        assertFalse(memberInformationObjects.isEmpty());
+        assertTrue(memberInformationObjects.size() > 24);
 
     }
 
