@@ -29,16 +29,6 @@ class DwSearchSiteHtmlParserServiceTest {
     }
 
     @Test
-    public void parseDWHQMainPageTest() throws IOException {
-        Document doc = dwSeachrSiteHtmlParserService.parseDWHQMainPage();
-
-        System.out.println(doc.toString());
-
-        assertNotNull(doc);
-    }
-
-
-    @Test
     public void parseDWHQMemberSearch() throws IOException {
         Document doc = dwSeachrSiteHtmlParserService.parseDWHQMemberSearch();
 

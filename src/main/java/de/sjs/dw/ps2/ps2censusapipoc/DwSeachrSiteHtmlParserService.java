@@ -4,32 +4,30 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+import static org.slf4j.LoggerFactory.getLogger;
+
 @Service
 public class DwSeachrSiteHtmlParserService {
-    private static String SEARCH_URL = "https://druckwelle-hq.de/search/?&type=core_members&page=1&joinedDate=any&group[13]=1";
+    private static final Logger LOG = getLogger(DwSeachrSiteHtmlParserService.class);
 
-    public Document parseDWHQMainPage() throws IOException {
-        String url = "http://druckwelle-hq.de";
+    private static String SEARCH_URL = "https://druckwelle-hq.de/search/?&type=core_members&joinedDate=any&group[13]=1";
 
-        return Jsoup.connect(url).get();
-    }
 
     public Document parseDWHQMemberSearch() throws IOException {
         return parseDWHQMemberSearch(1);
     }
 
     public Document parseDWHQMemberSearch(int i) throws IOException {
-        String urlCoreMembers = "https://druckwelle-hq.de/search/?&type=core_members&joinedDate=any&group[13]=1";
 
-        return Jsoup.connect(urlCoreMembers).data("page",String.valueOf(i)).get();
+        return Jsoup.connect(SEARCH_URL).data("page",String.valueOf(i)).get();
     }
 
 
@@ -44,8 +42,9 @@ public class DwSeachrSiteHtmlParserService {
 
     protected String getMemberIdFromStreamItemContainer(Element el) {
         Elements elementDataFollowIds = el.getElementsByAttribute("data-followid");
-        // TODO elemts can be empty here since not all Members have the OPtion "Follow" activated
-        // If there is no ID here in the Field it can be extracted from the URL ... maybe this is better in all cases
+        if (elementDataFollowIds.isEmpty())
+            return "";
+
         return elementDataFollowIds.get(0).attr("data-followid");
     }
 
@@ -106,18 +105,14 @@ public class DwSeachrSiteHtmlParserService {
     }
 
     public  List<HasForumsMemberInformation> getAllHasForumsMemberInformationObjects(Supplier<HasForumsMemberInformation> supp) throws IOException{
-        Elements informationElements = getAllMemberInformationElements();
         List<HasForumsMemberInformation> returnList = new ArrayList<>();
         for (Element elem :
-                informationElements) {
-            System.out.println("Elem: " + elem);
-            String memberName = getMemberNameFromStreamItemContainer(elem);
-            String memberId = getMemberIdFromStreamItemContainer(elem);
-            String memberUrl = getMemberProfileUrlFromStreamItemContainer(elem);
+                getAllMemberInformationElements()) {
+
             HasForumsMemberInformation member = supp.get();
-            member.setForumsMemberId(memberId);
-            member.setForumsMemberPageUrl(memberUrl);
-            member.setForumsName(memberName);
+            member.setForumsMemberId(getMemberIdFromStreamItemContainer(elem));
+            member.setForumsMemberPageUrl(getMemberProfileUrlFromStreamItemContainer(elem));
+            member.setForumsName(getMemberNameFromStreamItemContainer(elem));
             returnList.add(member);
         }
         return returnList;
