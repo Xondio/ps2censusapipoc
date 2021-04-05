@@ -8,8 +8,10 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -41,12 +43,10 @@ public class DwSeachrSiteHtmlParserService {
     }
 
     protected String getMemberIdFromStreamItemContainer(Element el) {
-        Elements elementDataFollowIds = el.getElementsByAttribute("data-followid");
-        if (elementDataFollowIds.isEmpty())
-            return "";
+        String desiredId = "data-followid";
+        return el.getElementsByAttribute(desiredId).stream().findAny().map(e -> e.attr(desiredId)).orElse("");
 
-        return elementDataFollowIds.get(0).attr("data-followid");
-    }
+        }
 
     protected String getMemberNameFromStreamItemContainer(Element el) {
         Elements ipsList_reset = el.getElementsByClass("ipsStreamItem_title");
@@ -105,14 +105,18 @@ public class DwSeachrSiteHtmlParserService {
     }
 
     public  List<HasForumsMemberInformation> getAllHasForumsMemberInformationObjects(Supplier<HasForumsMemberInformation> supp) throws IOException{
+        Elements informationElements = getAllMemberInformationElements();
         List<HasForumsMemberInformation> returnList = new ArrayList<>();
         for (Element elem :
-                getAllMemberInformationElements()) {
-
+                informationElements) {
+            System.out.println("Elem: " + elem);
+            String memberName = getMemberNameFromStreamItemContainer(elem);
+            String memberId = getMemberIdFromStreamItemContainer(elem);
+            String memberUrl = getMemberProfileUrlFromStreamItemContainer(elem);
             HasForumsMemberInformation member = supp.get();
-            member.setForumsMemberId(getMemberIdFromStreamItemContainer(elem));
-            member.setForumsMemberPageUrl(getMemberProfileUrlFromStreamItemContainer(elem));
-            member.setForumsName(getMemberNameFromStreamItemContainer(elem));
+            member.setForumsMemberId(memberId);
+            member.setForumsMemberPageUrl(memberUrl);
+            member.setForumsName(memberName);
             returnList.add(member);
         }
         return returnList;
