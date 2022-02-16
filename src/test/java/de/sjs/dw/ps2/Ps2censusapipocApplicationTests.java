@@ -1,4 +1,4 @@
-package de.sjs.dw.ps2.ps2censusapipoc;
+package de.sjs.dw.ps2;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

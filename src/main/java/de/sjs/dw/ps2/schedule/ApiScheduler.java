@@ -1,4 +1,4 @@
-package de.sjs.dw.ps2.ps2censusapipoc;
+package de.sjs.dw.ps2.schedule;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,9 @@
-package de.sjs.dw.ps2.ps2censusapipoc;
+package de.sjs.dw.ps2;
 
 import de.sjs.dw.ps2.apienteties.Member;
 import de.sjs.dw.ps2.apienteties.OutfitList;
 import de.sjs.dw.ps2.apienteties.OutfitListMembersAllFields;
-import de.sjs.dw.ps2.ps2censusapipoc.ps2rest.Ps2ApiService;
+import de.sjs.dw.ps2.ps2rest.Ps2ApiService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
