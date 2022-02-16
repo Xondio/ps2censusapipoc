@@ -1,6 +1,5 @@
-package de.sjs.dw.ps2.ps2censusapipoc.entities;
+package de.sjs.dw.ps2.db.entities;
 
-import javax.persistence.Entity;
 import java.util.List;
 
 //@Entity
@@ -9,8 +8,8 @@ public class Organisation {
     private String name;
     private String alias;
 
-    private DwMember founder;
-    private List<DwMember> leaders;
+    private DwMemberDpo founder;
+    private List<DwMemberDpo> leaders;
     private List<PlayerCharacter> organisationMembers;
 
 

@@ -1,4 +1,4 @@
-package de.sjs.dw.ps2.ps2censusapipoc.entities;
+package de.sjs.dw.ps2.db.entities;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class DwMember {
+public class DwMemberDpo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +22,7 @@ public class DwMember {
     @OneToMany(cascade = CascadeType.ALL)
     public List<PlayerCharacter> playerCharacters;
 
-    public DwMember() {
+    public DwMemberDpo() {
         playerCharacters = new ArrayList<>();
     }
 

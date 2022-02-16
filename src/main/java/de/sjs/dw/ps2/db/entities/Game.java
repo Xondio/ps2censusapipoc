@@ -1,6 +1,5 @@
-package de.sjs.dw.ps2.ps2censusapipoc.entities;
+package de.sjs.dw.ps2.db.entities;
 
-import javax.persistence.Entity;
 import java.util.List;
 
 //@Entity

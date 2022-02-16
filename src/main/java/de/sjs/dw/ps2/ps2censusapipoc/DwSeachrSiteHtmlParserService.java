@@ -1,5 +1,6 @@
 package de.sjs.dw.ps2.ps2censusapipoc;
 
+import de.sjs.dw.ps2.db.entities.traits.HasForumsMemberInformation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -8,10 +9,8 @@ import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -22,14 +21,24 @@ public class DwSeachrSiteHtmlParserService {
 
     private static String SEARCH_URL = "https://druckwelle-hq.de/search/?&type=core_members&joinedDate=any&group[13]=1";
 
-
+    /**
+     * Searches for DWHQMamber with ID1
+     * @return Document
+     * @throws IOException if Connections fails
+     */
     public Document parseDWHQMemberSearch() throws IOException {
         return parseDWHQMemberSearch(1);
     }
 
-    public Document parseDWHQMemberSearch(int i) throws IOException {
+    /**
+     *
+     * @param pageIndex Page Index of MemberList
+     * @return Document
+     * @throws IOException if Connections fails
+     */
+    public Document parseDWHQMemberSearch(int pageIndex) throws IOException {
 
-        return Jsoup.connect(SEARCH_URL).data("page",String.valueOf(i)).get();
+        return Jsoup.connect(SEARCH_URL).data("page",String.valueOf(pageIndex)).get();
     }
 
 

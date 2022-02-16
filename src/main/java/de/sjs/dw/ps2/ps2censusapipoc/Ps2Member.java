@@ -1,6 +1,8 @@
 package de.sjs.dw.ps2.ps2censusapipoc;
 
-public class Ps2Member implements HasForumsMemberInformation{
+import de.sjs.dw.ps2.db.entities.traits.HasForumsMemberInformation;
+
+public class Ps2Member implements HasForumsMemberInformation {
     private String forumsName;
     private String forumsMemberPageUrl;
     private String forumsMemberId;

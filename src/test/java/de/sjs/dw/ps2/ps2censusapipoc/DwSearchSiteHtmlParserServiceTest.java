@@ -1,5 +1,6 @@
 package de.sjs.dw.ps2.ps2censusapipoc;
 
+import de.sjs.dw.ps2.db.entities.traits.HasForumsMemberInformation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -51,7 +52,7 @@ class DwSearchSiteHtmlParserServiceTest {
     }
 
     @Test
-    public void findSearchMainElementTest() throws IOException {
+    public void findSearchMainElementTest() {
         Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
 
         System.out.println(element.toString());
@@ -61,7 +62,7 @@ class DwSearchSiteHtmlParserServiceTest {
     }
 
     @Test
-    public void findStreamItemContainerTest() throws IOException {
+    public void findStreamItemContainerTest() {
         Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
 
         Elements streamItem_container = dwSeachrSiteHtmlParserService.findStreamItemContainers(element);
@@ -72,7 +73,7 @@ class DwSearchSiteHtmlParserServiceTest {
     }
 
     @Test
-    public void getMemberIdFromStreamItemContainerTest() throws IOException {
+    public void getMemberIdFromStreamItemContainerTest() {
         Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
 
         Elements streamItem_container = dwSeachrSiteHtmlParserService.findStreamItemContainers(element);
@@ -85,7 +86,7 @@ class DwSearchSiteHtmlParserServiceTest {
 
 
     @Test
-    public void getMemberNameFromStreamItemContainerTest() throws IOException {
+    public void getMemberNameFromStreamItemContainerTest() {
         Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
         Elements streamItem_container = dwSeachrSiteHtmlParserService.findStreamItemContainers(element);
 
@@ -98,7 +99,7 @@ class DwSearchSiteHtmlParserServiceTest {
     }
 
     @Test
-    public void getMemberProfileUrlFromStreamItemContainerTest() throws IOException {
+    public void getMemberProfileUrlFromStreamItemContainerTest() {
         Element element = dwSeachrSiteHtmlParserService.extractSearchResultsFromPage(document);
         Elements streamItem_container = dwSeachrSiteHtmlParserService.findStreamItemContainers(element);
 

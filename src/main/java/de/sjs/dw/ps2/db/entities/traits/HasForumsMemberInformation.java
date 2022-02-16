@@ -1,4 +1,4 @@
-package de.sjs.dw.ps2.ps2censusapipoc;
+package de.sjs.dw.ps2.db.entities.traits;
 
 public interface HasForumsMemberInformation {
 

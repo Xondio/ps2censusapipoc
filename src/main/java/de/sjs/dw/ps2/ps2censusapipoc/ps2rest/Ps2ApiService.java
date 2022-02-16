@@ -1,4 +1,4 @@
-package de.sjs.dw.ps2.ps2censusapipoc;
+package de.sjs.dw.ps2.ps2censusapipoc.ps2rest;
 
 import de.sjs.dw.ps2.apienteties.OutfitListMembersAllFields;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,23 +1,21 @@
-package de.sjs.dw.ps2.ps2censusapipoc;
+package de.sjs.dw.ps2.db;
 
-import de.sjs.dw.ps2.ps2censusapipoc.entities.DwMember;
+import de.sjs.dw.ps2.db.entities.DwMemberDpo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
-public class DwMemberService {
+public class DwMemberDbFassade {
 
     @Autowired
     private DwMemberRepository dwMemberRepository;
 
-    public DwMember saveOneDwMember(DwMember member){
+    public DwMemberDpo saveOneDwMember(DwMemberDpo member){
 
         return dwMemberRepository.save(member);
     }
 
-    public Iterable<DwMember> saveAllDwMembers(Iterable<DwMember> dwMembers){
+    public Iterable<DwMemberDpo> saveAllDwMembers(Iterable<DwMemberDpo> dwMembers){
 
         return dwMemberRepository.saveAll(dwMembers);
     }
