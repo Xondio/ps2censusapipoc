@@ -1,5 +1,5 @@
 
-package de.sjs.dw.ps2.apienteties;
+package de.sjs.dw.ps2.ps2rest.apienteties;
 
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
