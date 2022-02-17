@@ -1,6 +1,8 @@
-
+ToDo list for future mans problem
 
 - Redo Tests in a proper way
 - Create Service to recive DW-Members from web site
 
 - Add Parameter file (for Urls etc.)
+- Add Proper Logging (Lombock slf4j - Logback)
+- Implement Proper DB (MySQL? SQLite ? External DB ?)

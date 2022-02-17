@@ -1,6 +1,6 @@
 package de.sjs.dw.ps2.dwhqsite;
 
-import de.sjs.dw.ps2.db.entities.traits.HasForumsMemberInformation;
+import de.sjs.dw.ps2.dwhqsite.traits.HasForumsMemberInformation;
 
 public class Ps2Member implements HasForumsMemberInformation {
     private String forumsName;

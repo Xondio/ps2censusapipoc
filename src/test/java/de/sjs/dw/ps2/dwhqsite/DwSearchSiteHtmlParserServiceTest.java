@@ -1,7 +1,7 @@
 package de.sjs.dw.ps2.dwhqsite;
 
 
-import de.sjs.dw.ps2.db.entities.traits.HasForumsMemberInformation;
+import de.sjs.dw.ps2.dwhqsite.traits.HasForumsMemberInformation;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;

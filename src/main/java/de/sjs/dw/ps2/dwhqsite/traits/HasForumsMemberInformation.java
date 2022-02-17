@@ -1,4 +1,4 @@
-package de.sjs.dw.ps2.db.entities.traits;
+package de.sjs.dw.ps2.dwhqsite.traits;
 
 public interface HasForumsMemberInformation {
 

@@ -19,8 +19,8 @@ class DwMemberDpoDbFassadeTest {
     @Autowired
     DwMemberDbFassade dwMemberDbFassade;
 
-    @Autowired
-    DwMemberRepository dwMemberRepository;
+//    @Autowired
+//    DwMemberRepository dwMemberRepository;
 
     @DisplayName("Can one Member be saved in DB (H2)")
     @Test
@@ -54,7 +54,7 @@ class DwMemberDpoDbFassadeTest {
         assertNotNull(returnDwMemberDpo.getId());
         System.out.println(returnDwMemberDpo.getId());
         assertTrue(returnDwMemberDpo.getId() > 0L);
-        Optional<DwMemberDpo> dwMemberById = dwMemberRepository.findById(returnDwMemberDpo.getId());
+        Optional<DwMemberDpo> dwMemberById = dwMemberDbFassade.findById(returnDwMemberDpo.getId());
         assertTrue(dwMemberById.isPresent());
         assertEquals(dwMemberById.get().getForumsName(), dwMemberDpo1.getForumsName());
 
