@@ -15,6 +15,11 @@ import java.util.function.Supplier;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
+/**
+ *  This Service reads the DWHQ WebSite i.e. the member List from all DWHQ Members
+ *  and parses some information
+ *
+ */
 @Service
 public class DwSeachrSiteHtmlParserService {
     private static final Logger LOG = getLogger(DwSeachrSiteHtmlParserService.class);

@@ -12,12 +12,10 @@ public class DwMemberDpo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
     private String forumsName;
     private String forumsId;
     private String forumsProfilPageUrl;
     private Date memberSince;
-
 
     @OneToMany(cascade = CascadeType.ALL)
     public List<PlayerCharacter> playerCharacters;

@@ -11,14 +11,14 @@ import java.util.Map;
 @Service
 public class Ps2ApiService {
 
+    String urlParameter = "https://census.daybreakgames.com/get/ps2:v2/outfit/?name={outfitName}&c:resolve=member_character";
+
     @Autowired
     RestTemplate restTemplate;
 
     public OutfitListMembersAllFields receiveOutfitListMembersAllFields(String outfitName){
-        String url = "https://census.daybreakgames.com/get/ps2:v2/outfit/?name={outfitName}&c:resolve=member_character";
-
         Map<String, String> vars = Collections.singletonMap("outfitName", outfitName);
 
-        return restTemplate.getForObject(url, OutfitListMembersAllFields.class, vars);
+        return restTemplate.getForObject(urlParameter, OutfitListMembersAllFields.class, vars);
     }
 }
